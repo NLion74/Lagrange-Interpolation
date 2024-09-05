@@ -23,16 +23,26 @@ def displayLagrangePolynomial(x_values, y_values):
 # Calculate Polynomial via Lagrange Interpolation, inputting all the points and the x value you want to calculate
 def calculateLagrangeInterpolation(x_values, y_values, x):
     n = len(x_values)
-    polynomial = 0
 
+    # Result Polynomial
+    P = 0
+
+    # Iterate through number of points. Every iteration one Lagrange polynomial Li is added to the result Polynomial P
     for i in range(n):
-        term = y_values[i]
-        for j in range(n):
-            if i != j:
-                term *= (x - x_values[j]) / (x_values[i] - x_values[j])
-        polynomial += term
+        xi = x_values[i]
+        yi = y_values[i]
 
-    return polynomial
+        # Construct Lagrange polynomial Li for given points
+        Li = 1
+        for j in range(n):
+            xj = x_values[j]
+            if j != i:
+                Li *= (x - xj) / (xi - x_values[j])
+
+        # Add Lagrange polynomial Li * yi to the result Polynomial P
+        P += yi * Li
+
+    return P
 
 
 if __name__ == "__main__":
