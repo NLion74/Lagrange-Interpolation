@@ -37,6 +37,7 @@ def calculateLagrangeInterpolation(x_values, y_values, x):
 
 if __name__ == "__main__":
     # Define the points you want the Lagrange interpolation algorithm to use for the polynomial
+    # Input points as [[x1, y1], [x2, y2]]
     points = [[1, 4], [3, -3], [7, 21], [8, 4], [11, -13]]
 
     x_values = []
