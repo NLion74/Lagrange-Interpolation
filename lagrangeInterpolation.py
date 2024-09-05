@@ -1,23 +1,7 @@
 import numpy
 import numpy as np
 import matplotlib.pyplot as plt
-
-
-def displayLagrangePolynomial(x_values, y_values):
-    # Calculating values of polynomial
-    x_dense = np.linspace(min(x_values), max(x_values), 500)
-    y_dense = np.array([calculateLagrangeInterpolation(x_values, y_values, xi) for xi in x_dense])
-
-    # Show polynomial and given points on plot
-    plt.plot(x_dense, y_dense, label="Lagrange Polynomial", color="red")
-    plt.scatter(x_values, y_values, color="blue", label="Points")
-
-    plt.title('Lagrange Interpolation')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
+import re
 
 
 # Calculate Polynomial via Lagrange Interpolation, inputting all the points and the x value you want to calculate
@@ -45,11 +29,39 @@ def calculateLagrangeInterpolation(x_values, y_values, x):
     return P
 
 
+def displayLagrangePolynomial(x_values, y_values):
+    # Calculating values of polynomial
+    x_dense = np.linspace(min(x_values), max(x_values), 500)
+    y_dense = np.array([calculateLagrangeInterpolation(x_values, y_values, xi) for xi in x_dense])
+
+    # Show polynomial and given points on plot
+    plt.plot(x_dense, y_dense, label="Lagrange Polynomial", color="red")
+    plt.scatter(x_values, y_values, color="blue", label="Points")
+
+    plt.title('Lagrange Interpolation')
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+
+def stringToListPair(string):
+    # Find all coordinate pairs in the string
+    pairs = re.findall(r'\(([^)]+)\)', string)  # Extract content within parentheses
+    result = []
+    for pair in pairs:
+        # Split each pair by comma and convert to float
+        coords = [float(num) for num in pair.split(',')]
+        result.append(coords)
+    return result
+
+
 if __name__ == "__main__":
     # Define the points you want the Lagrange interpolation algorithm to use for the polynomial
     # Input points as [[x1, y1], [x2, y2]]
     # example: points = [[1, 4], [3, -3], [7, 21], [8, 4], [11, -13]]
-    points = [[-8, 0], [-3, 50], [1, -13], [7, 21], [8, 4], [11, -33]]
+    points = stringToListPair(input("Enter list of points in format (x1, y1), (x2, y2)...: "))
 
     x_values = []
     y_values = []
