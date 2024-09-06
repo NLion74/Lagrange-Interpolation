@@ -47,21 +47,27 @@ def displayLagrangePolynomial(x_values, y_values):
 
 
 def stringToListPair(string):
-    # Find all coordinate pairs in the string
-    pairs = re.findall(r'\(([^)]+)\)', string)  # Extract content within parentheses
+    pairs = re.findall(r'\(([^)]+)\)', string)
     result = []
     for pair in pairs:
-        # Split each pair by comma and convert to float
         coords = [float(num) for num in pair.split(',')]
         result.append(coords)
+
     return result
 
 
 if __name__ == "__main__":
     # Define the points you want the Lagrange interpolation algorithm to use for the polynomial
     # Input points as [[x1, y1], [x2, y2]]
-    # example: points = [[1, 4], [3, -3], [7, 21], [8, 4], [11, -13]]
-    points = stringToListPair(input("Enter list of points in format (x1, y1), (x2, y2)...: "))
+    while True:
+        points = stringToListPair(input("Enter list of points in format (x1, y1), (x2, y2)...: "))
+
+        if points:
+            print(f"Calculating Lagrange Interpolation Polynomial from given points {points}")
+            break
+
+        print("Incorrect format, try again!")
+
 
     x_values = []
     y_values = []
